@@ -1,0 +1,21 @@
+id: context
+
+valid:
+  - This paragraph explains the `context`.
+
+invalid:
+  - |
+    #context if true { foo }
+  - |
+    #context {
+      let x = 1
+    }
+  - |
+    #let template(body) = {
+      context counter(heading).display()
+      body
+    }
+  - |
+    #set page(header: context {
+      align(right, counter(heading).display())
+    })

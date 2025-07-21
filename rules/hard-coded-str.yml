@@ -1,0 +1,18 @@
+id: hard-coded-str
+language: typst
+severity: warning
+rule:
+  kind: code
+  has:
+    kind: string
+    stopBy: end
+    regex: >-
+      ^".{3,}"$
+    # At least two characters
+    not:
+      any:
+        - inside:
+            kind: import
+        - inside:
+            kind: set
+            stopBy: end

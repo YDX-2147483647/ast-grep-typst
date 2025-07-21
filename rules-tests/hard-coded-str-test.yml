@@ -1,0 +1,19 @@
+id: hard-coded-str
+
+valid:
+  - |
+    "smart quote"
+  - |
+    #import "@preview/numbly:0.1.0": numbly
+  - |
+    #set text(weight: "bold")
+  - |
+    #range(5).map(str).join(", ")
+
+invalid:
+  - |
+    #"str"
+  - |
+    #{ "str" }
+  - |
+    #let x = "str"

@@ -1,0 +1,6 @@
+id: eval
+language: typst
+severity: warning
+rule:
+  kind: ident
+  regex: ^eval$

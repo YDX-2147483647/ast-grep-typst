@@ -1,0 +1,11 @@
+id: eval
+
+invalid:
+  - "#eval"
+
+valid:
+  - "`eval`"
+  - eval
+  - |
+    #import "@preview/physica:0.9.5": evaluated
+    #evaluated

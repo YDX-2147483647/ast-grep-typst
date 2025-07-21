@@ -1,0 +1,49 @@
+id: show-function
+snapshots:
+  ? |
+    #let foo(it) = { set text(red); it }
+    #show heading: foo
+  : labels:
+    - source: 'show heading: foo'
+      style: primary
+      start: 38
+      end: 55
+    - source: foo
+      style: secondary
+      start: 52
+      end: 55
+  ? |
+    #let template(body) = {
+      show emph: repr
+      body
+    }
+    #show: template
+  : labels:
+    - source: 'show emph: repr'
+      style: primary
+      start: 26
+      end: 41
+    - source: repr
+      style: secondary
+      start: 37
+      end: 41
+  '#show heading: it => { set text(red); it }':
+    labels:
+    - source: 'show heading: it => { set text(red); it }'
+      style: primary
+      start: 1
+      end: 42
+    - source: it => { set text(red); it }
+      style: secondary
+      start: 15
+      end: 42
+  '#show heading: text.with(red)':
+    labels:
+    - source: 'show heading: text.with(red)'
+      style: primary
+      start: 1
+      end: 29
+    - source: text.with(red)
+      style: secondary
+      start: 15
+      end: 29

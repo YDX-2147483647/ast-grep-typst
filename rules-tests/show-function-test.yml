@@ -1,0 +1,35 @@
+id: show-function
+
+# Reference:
+# https://typst.app/docs/reference/styling/#show-rules
+# https://github.com/typst/typst/blob/main/tests/suite/styling/show.typ
+
+valid:
+  # Best practice
+  - "#show heading: set text(red)"
+  - |
+    #let template(body) = {
+      show heading: set text(red)
+      body
+    }
+    #show: template
+
+  # Acceptable one-off hack
+  - "#show heading: none"
+  - |
+    #show "badly": "great"
+  - "#show heading: [B]"
+
+invalid:
+  # Hard to override
+  - "#show heading: text.with(red)"
+  - "#show heading: it => { set text(red); it }"
+  - |
+    #let foo(it) = { set text(red); it }
+    #show heading: foo
+  - |
+    #let template(body) = {
+      show emph: repr
+      body
+    }
+    #show: template

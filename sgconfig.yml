@@ -1,0 +1,9 @@
+ruleDirs:
+  - rules
+testConfigs:
+  - testDir: rules-tests
+customLanguages:
+  typst:
+    libraryPath: tree-sitter-typst.dll # or tree-sitter-typst.so
+    extensions: [typ]
+    expandoChar: μ

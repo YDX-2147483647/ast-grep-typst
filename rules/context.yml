@@ -1,0 +1,5 @@
+id: context
+language: typst
+severity: warning
+rule:
+  kind: context

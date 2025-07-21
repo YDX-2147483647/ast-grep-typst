@@ -1,0 +1,43 @@
+id: context
+snapshots:
+  ? |
+    #context if true { foo }
+  : labels:
+    - source: context if true { foo }
+      style: primary
+      start: 1
+      end: 24
+  ? |
+    #context {
+      let x = 1
+    }
+  : labels:
+    - source: |-
+        context {
+          let x = 1
+        }
+      style: primary
+      start: 1
+      end: 24
+  ? |
+    #let template(body) = {
+      context counter(heading).display()
+      body
+    }
+  : labels:
+    - source: context counter(heading).display()
+      style: primary
+      start: 26
+      end: 60
+  ? |
+    #set page(header: context {
+      align(right, counter(heading).display())
+    })
+  : labels:
+    - source: |-
+        context {
+          align(right, counter(heading).display())
+        }
+      style: primary
+      start: 18
+      end: 72

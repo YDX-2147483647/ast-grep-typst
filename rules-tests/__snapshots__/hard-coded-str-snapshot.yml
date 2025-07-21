@@ -1,0 +1,35 @@
+id: hard-coded-str
+snapshots:
+  ? |
+    #"str"
+  : labels:
+    - source: '#"str"'
+      style: primary
+      start: 0
+      end: 6
+    - source: '"str"'
+      style: secondary
+      start: 1
+      end: 6
+  ? |
+    #let x = "str"
+  : labels:
+    - source: '#let x = "str"'
+      style: primary
+      start: 0
+      end: 14
+    - source: '"str"'
+      style: secondary
+      start: 9
+      end: 14
+  ? |
+    #{ "str" }
+  : labels:
+    - source: '#{ "str" }'
+      style: primary
+      start: 0
+      end: 10
+    - source: '"str"'
+      style: secondary
+      start: 3
+      end: 8

@@ -1,0 +1,20 @@
+id: show-function
+language: typst
+severity: warning
+rule:
+  any:
+    - kind: show
+      any:
+        # Matching `nthChild` is necessary to exclude `show: rest => …`.
+        - has:
+            # Example: `show heading: it => …`
+            nthChild: 2
+            kind: lambda
+        - has:
+            # Example: `show heading: text.with(…)`
+            nthChild: 2
+            kind: call
+        - has:
+            # Example: `show emph: repr`
+            nthChild: 2
+            kind: ident
