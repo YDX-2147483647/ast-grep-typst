@@ -1,0 +1,13 @@
+id: deps
+
+invalid:
+  - |
+    #import "@preview/example:0.1.0": add
+  - |
+    #import "@preview/cetz:0.3.2": *
+
+valid:
+  - |
+    #import "./preview.typ": add
+  - |
+    #import "/preview.typ": add

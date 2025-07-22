@@ -1,0 +1,24 @@
+id: deps
+snapshots:
+  ? |
+    #import "@preview/cetz:0.3.2": *
+  : labels:
+    - source: 'import "@preview/cetz:0.3.2": *'
+      style: primary
+      start: 1
+      end: 32
+    - source: '"@preview/cetz:0.3.2"'
+      style: secondary
+      start: 8
+      end: 29
+  ? |
+    #import "@preview/example:0.1.0": add
+  : labels:
+    - source: 'import "@preview/example:0.1.0": add'
+      style: primary
+      start: 1
+      end: 37
+    - source: '"@preview/example:0.1.0"'
+      style: secondary
+      start: 8
+      end: 32

@@ -1,0 +1,11 @@
+id: deps
+language: typst
+severity: info
+rule:
+  kind: import
+  has:
+    nthChild: 1
+    field: import
+    kind: string
+    regex: >-
+      ^"@

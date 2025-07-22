@@ -38,6 +38,9 @@ valid:
     #args.has("children")
   - |
     #it.element.at("body")
+  - |
+    #plugin("digestify.wasm")
+    #read("data.txt")
 
 invalid:
   - |

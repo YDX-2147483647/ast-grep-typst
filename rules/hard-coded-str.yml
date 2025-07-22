@@ -24,7 +24,7 @@ rule:
                 nthChild: 1
                 field: item
                 kind: ident
-                regex: "^(?:panic|assert|regex)$"
+                regex: "^(?:panic|assert|regex|plugin|read)$"
             - has:
                 # `assert.eq` and `assert.ne`
                 nthChild: 1
