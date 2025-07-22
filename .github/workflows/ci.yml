@@ -33,3 +33,22 @@ jobs:
 
       - run: just check
       - run: just test
+
+      - name: List example packages
+        shell: bash
+        run: |
+          cat <<EOF > deps.typ
+          #import "@preview/touying:0.6.1"
+          #import "@preview/glossarium:0.5.8"
+          EOF
+      - uses: typst-community/setup-typst@v4
+        with:
+          cache-dependency-path: deps.typ
+
+      - name: Scan default rules
+        run: |
+          just scan touying/0.6.1
+          just scan glossarium/0.5.8
+      - name: Scan hard-coded-str
+        run: |
+          just scan touying/0.6.1 --hint=hard-coded-str --filter=hard-coded-str
