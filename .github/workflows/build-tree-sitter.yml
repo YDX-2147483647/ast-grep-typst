@@ -1,0 +1,77 @@
+name: Build tree-sitter-typst
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: uben0/tree-sitter-typst
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install -g tree-sitter-cli
+
+      - name: Build Linux .so
+        run: |
+          tree-sitter build --output tree-sitter-typst.so
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tree-sitter-typst.so
+          path: tree-sitter-typst.so
+
+  build-wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: uben0/tree-sitter-typst
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install -g tree-sitter-cli wasm-pack
+
+      - name: Build WebAssembly
+        run: |
+          tree-sitter build --wasm --output tree-sitter-typst.wasm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tree-sitter-typst.wasm
+          path: tree-sitter-typst.wasm
+
+  build-windows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: uben0/tree-sitter-typst
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install -g tree-sitter-cli
+
+      - name: Install MinGW for cross-compilation
+        run: |
+          sudo apt update
+          sudo apt install -y mingw-w64
+
+      - name: Build Windows .dll
+        run: |
+          CC=x86_64-w64-mingw32-gcc CFLAGS="-D_WIN32" tree-sitter build --output tree-sitter-typst.dll
+        continue-on-error: true
+        # At the end of the build process, tree-sitter will complain that
+        # “tree-sitter-typst.dll: invalid ELF header”, because it fails to verify dll on Linux.
+        # We could ignore this error and manually verify the dll on Windows.
+
+      - name: Verify that .dll was created
+        run: |
+          ls -la tree-sitter-typst.dll
+          file tree-sitter-typst.dll
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tree-sitter-typst.dll
+          path: tree-sitter-typst.dll
