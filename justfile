@@ -1,8 +1,19 @@
 typst_preview := replace(cache_directory(), '\', '/') + "/typst/packages/preview"
+tree-sitter-typst := "tree-sitter-typst." + if os_family() == "windows" { "dll" } else { "so" }
 
 # List available recipes
 @list:
     just --list
+
+# Download tree-sitter-typst from GitHub Actions
+setup:
+    {{ \
+        if path_exists(tree-sitter-typst) != "true" { \
+            "gh run download --name " + tree-sitter-typst \
+        } else { \
+            "echo 'Found existing " + tree-sitter-typst + ".'" \
+        } \
+    }}
 
 # Scan code by rules, e.g., `just scan headcount`, `just scan tidy/0.3.0 --filter=eval`, `just scan physica/0.9.5 --hint=hard-coded-str --filter=hard-coded-str`
 scan PREVIEW_PACKAGE_PATH *OPTIONS:

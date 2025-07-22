@@ -4,6 +4,8 @@ testConfigs:
   - testDir: rules-tests
 customLanguages:
   typst:
-    libraryPath: tree-sitter-typst.dll # or tree-sitter-typst.so
+    libraryPath:
+      x86_64-unknown-linux-gnu: tree-sitter-typst.so
+      x86_64-pc-windows-msvc: tree-sitter-typst.dll
     extensions: [typ]
     expandoChar: μ

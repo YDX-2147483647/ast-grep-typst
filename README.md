@@ -46,25 +46,19 @@ Use [ast-grep playground (forked version)][playground].
 
 ### Local
 
-First, compile https://github.com/uben0/tree-sitter-typst to [add typst support](https://ast-grep.github.io/advanced/custom-language.html).
+First, put the tree-sitter-typst dynamic library beside this README. It will [add typst support to ast-grep](https://ast-grep.github.io/advanced/custom-language.html).
 
-You could use GitHub Codespaces or Gitpod to compile:
+You could do so by any of the following methods:
 
-```shell
-gh repo clone uben0/tree-sitter-typst -- --filter=blob:none
-npm install -g tree-sitter-cli
+- Run `just setup` to download it with GitHub CLI.
 
-# Compile for Linux
-tree-sitter build --output tree-sitter-typst.so
+- Manually download it from [![Build tree-sitter-typst](https://github.com/YDX-2147483647/ast-grep-typst/actions/workflows/build-tree-sitter.yml/badge.svg)](https://github.com/YDX-2147483647/ast-grep-typst/actions/workflows/build-tree-sitter.yml).
 
-# Cross-compile for Windows
-apt install mingw-w64
-CC=x86_64-w64-mingw32-gcc CFLAGS="-D_WIN32" tree-sitter build --output tree-sitter-typst.dll
-# At the end of the build process, tree-sitter will complain that “tree-sitter-typst.dll: invalid ELF header”, because it fails to verify dll on Linux.
-# You could ignore this error and manually verify the dll on Windows.
-```
+  Choose the latest run, scroll down to _Artifacts_, select `*.so` for Linux or `*.dll` for Windows, and extract the downloaded zip file.
 
-Download `tree-sitter-typst.{so,dll}` and put it at the root directory of this project.
+- (For professionals only) Compile it from https://github.com/uben0/tree-sitter-typst.
+
+  You could open that repo with GitHub Codespaces or Gitpod. Please refer to [the workflow file](./.github/workflows/build-tree-sitter.yml) for more info.
 
 After that, you can use `ast-grep`. Please refer to [Quick Start | ast-grep](https://ast-grep.github.io/guide/quick-start.html) for more information.
 
