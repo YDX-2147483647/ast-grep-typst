@@ -1,5 +1,41 @@
 # Typst rules based on [ast-grep](https://ast-grep.github.io)
 
+## Usage
+
+```shell
+$ just scan glossarium/0.5.8
+ast-grep scan …/preview/glossarium/0.5.8
+warning[show-function]:
+     ┌─ …/preview/glossarium/0.5.8/themes/default.typ:1361:5
+     │
+1361 │     show ref: refrule.with(update: false)
+     │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning[show-function]:
+    ┌─ …/preview/glossarium/0.5.8/themes/default.typ:901:3
+    │
+901 │ ╭     show figure.where(kind: __glossarium_figure): it => {
+    │ │ ╭─────────────────────────────────────────────────'
+902 │ │ │     align(start, it.body)
+903 │ │ │   }
+    │ ╰─│───^
+    │   ╰───'
+
+note[context]:
+    ┌─ …/preview/glossarium/0.5.8\themes\default.typ:568:35
+    │
+568 │ #let style-entries(attr, style) = context _style-entries(attr, style)
+    │                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note[stateful]:
+   ┌─ …/preview/glossarium/0.5.8/themes/default.typ:18:27
+   │
+18 │ #let __glossary_entries = state("__glossary_entries", (:))
+   │                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+…
+```
+
 ## Development
 
 ### Online
@@ -33,7 +69,6 @@ Download `tree-sitter-typst.{so,dll}` and put it at the root directory of this p
 After that, you can use `ast-grep`. Please refer to [Quick Start | ast-grep](https://ast-grep.github.io/guide/quick-start.html) for more information.
 
 ```shell
-ast-grep test --skip-snapshot-tests
-ast-grep test --update-all
 ast-grep test
+# Or just add-test
 ```

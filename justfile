@@ -4,15 +4,18 @@ typst_preview := replace(cache_directory(), '\', '/') + "/typst/packages/preview
 @list:
     just --list
 
-# Scan code by rules, e.g., `just scan headcount`, `just scan i-figured/0.2.4 --off=hard-coded-str`, `just scan tidy/0.3.0 --filter=eval`
+# Scan code by rules, e.g., `just scan headcount`, `just scan tidy/0.3.0 --filter=eval`, `just scan physica/0.9.5 --hint=hard-coded-str --filter=hard-coded-str`
 scan PREVIEW_PACKAGE_PATH *OPTIONS:
     ast-grep scan {{ OPTIONS }} {{ typst_preview }}/{{ PREVIEW_PACKAGE_PATH }}
 
 # Normal procedure after adding new tests; see also https://ast-grep.github.io/guide/test-rule.html
-add-test:
+add-test: && test
     ast-grep test --skip-snapshot-tests
     ast-grep test --interactive
-    ast-grep test
+
+[private]
+test:
+    ast-grep test --include-off
 
 # Check rule files match their IDs and tests
 check:

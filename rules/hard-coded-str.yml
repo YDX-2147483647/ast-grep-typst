@@ -1,6 +1,6 @@
 id: hard-coded-str
 language: typst
-severity: hint # Low severity because too common
+severity: "off" # Low severity because too common
 rule:
   kind: string
   regex: >-
