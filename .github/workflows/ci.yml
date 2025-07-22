@@ -1,0 +1,35 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    # For downloading artifacts
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: just,ast-grep
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          cache-dependency-glob: |
+            justfile
+
+      - run: just setup
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: just check
+      - run: just test

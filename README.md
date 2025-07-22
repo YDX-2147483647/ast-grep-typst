@@ -1,5 +1,7 @@
 # Typst rules based on [ast-grep](https://ast-grep.github.io)
 
+[![Check](https://github.com/YDX-2147483647/ast-grep-typst/actions/workflows/ci.yml/badge.svg)](https://github.com/YDX-2147483647/ast-grep-typst/actions/workflows/ci.yml)
+
 ## Usage
 
 ```shell
