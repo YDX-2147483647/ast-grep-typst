@@ -1,35 +1,44 @@
 id: hard-coded-str
 snapshots:
   ? |
+    #"\t\t\t"
+  : labels:
+    - source: '"\t\t\t"'
+      style: primary
+      start: 1
+      end: 9
+  ? |
     #"str"
   : labels:
-    - source: '#"str"'
-      style: primary
-      start: 0
-      end: 6
     - source: '"str"'
-      style: secondary
+      style: primary
       start: 1
       end: 6
   ? |
+    #"姓\u{3000}名"
+  : labels:
+    - source: '"姓\u{3000}名"'
+      style: primary
+      start: 1
+      end: 17
+  ? |
+    #foo("str")
+  : labels:
+    - source: '"str"'
+      style: primary
+      start: 5
+      end: 10
+  ? |
     #let x = "str"
   : labels:
-    - source: '#let x = "str"'
-      style: primary
-      start: 0
-      end: 14
     - source: '"str"'
-      style: secondary
+      style: primary
       start: 9
       end: 14
   ? |
     #{ "str" }
   : labels:
-    - source: '#{ "str" }'
-      style: primary
-      start: 0
-      end: 10
     - source: '"str"'
-      style: secondary
+      style: primary
       start: 3
       end: 8

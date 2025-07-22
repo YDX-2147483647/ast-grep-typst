@@ -4,7 +4,7 @@
 
 ### Online
 
-Use [ast-grep playground][playground].
+Use [ast-grep playground (forked version)][playground].
 
 [playground]: https://ydx-2147483647.github.io/ast-grep.github.io/playground.html#eyJtb2RlIjoiQ29uZmlnIiwibGFuZyI6InR5cHN0IiwicXVlcnkiOiIiLCJyZXdyaXRlIjoiIiwic3RyaWN0bmVzcyI6ImFzdCIsInNlbGVjdG9yIjoiIiwiY29uZmlnIjoiaWQ6IGNvbnRleHRcbmxhbmd1YWdlOiB0eXBzdFxuc2V2ZXJpdHk6IHdhcm5pbmdcbnJ1bGU6XG4gIGtpbmQ6IGNvbnRleHRcbiIsInNvdXJjZSI6IiNjb250ZXh0IGNvdW50ZXIoaGVhZGluZykuZGlzcGxheSgpXG4ifQ==
 

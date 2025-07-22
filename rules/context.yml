@@ -1,5 +1,5 @@
 id: context
 language: typst
-severity: warning
+severity: info
 rule:
   kind: context

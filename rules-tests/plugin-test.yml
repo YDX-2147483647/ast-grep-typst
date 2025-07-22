@@ -1,0 +1,8 @@
+id: plugin
+
+invalid:
+  - |
+    #let p = plugin("digestify.wasm")
+
+valid:
+  - This is a plugin.

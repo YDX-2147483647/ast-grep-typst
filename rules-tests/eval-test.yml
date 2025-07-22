@@ -1,7 +1,16 @@
 id: eval
 
 invalid:
-  - "#eval"
+  - |
+    #{ eval("1+1") }
+  - |
+    #std.eval("1+1")
+  - "#let f = eval"
+  - "#let f = std.eval"
+  - |
+    #let f = eval("x")
+  - |
+    #let f = std.eval("x")
 
 valid:
   - "`eval`"
@@ -9,3 +18,5 @@ valid:
   - |
     #import "@preview/physica:0.9.5": evaluated
     #evaluated
+  - "#let eval = evaluated"
+  - "#eval"

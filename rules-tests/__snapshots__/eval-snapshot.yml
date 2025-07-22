@@ -1,8 +1,66 @@
 id: eval
 snapshots:
-  '#eval':
+  '#let f = eval':
     labels:
     - source: eval
       style: primary
+      start: 9
+      end: 13
+    - source: let f = eval
+      style: secondary
       start: 1
-      end: 5
+      end: 13
+  ? |
+    #let f = eval("x")
+  : labels:
+    - source: eval("x")
+      style: primary
+      start: 9
+      end: 18
+    - source: eval
+      style: secondary
+      start: 9
+      end: 13
+  '#let f = std.eval':
+    labels:
+    - source: std.eval
+      style: primary
+      start: 9
+      end: 17
+    - source: let f = std.eval
+      style: secondary
+      start: 1
+      end: 17
+  ? |
+    #let f = std.eval("x")
+  : labels:
+    - source: std.eval("x")
+      style: primary
+      start: 9
+      end: 22
+    - source: std.eval
+      style: secondary
+      start: 9
+      end: 17
+  ? |
+    #std.eval("1+1")
+  : labels:
+    - source: std.eval("1+1")
+      style: primary
+      start: 1
+      end: 16
+    - source: std.eval
+      style: secondary
+      start: 1
+      end: 9
+  ? |
+    #{ eval("1+1") }
+  : labels:
+    - source: eval("1+1")
+      style: primary
+      start: 3
+      end: 14
+    - source: eval
+      style: secondary
+      start: 3
+      end: 7

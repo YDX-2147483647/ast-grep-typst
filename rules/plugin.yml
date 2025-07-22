@@ -1,0 +1,10 @@
+id: plugin
+language: typst
+severity: info
+rule:
+  kind: call
+  has:
+    nthChild: 1
+    field: item
+    kind: ident
+    regex: ^plugin$

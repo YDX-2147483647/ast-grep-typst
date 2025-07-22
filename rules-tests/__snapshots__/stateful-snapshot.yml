@@ -1,0 +1,57 @@
+id: stateful
+snapshots:
+  ? |
+    #context counter(heading).get()
+  : labels:
+    - source: counter(heading)
+      style: primary
+      start: 9
+      end: 25
+    - source: counter
+      style: secondary
+      start: 9
+      end: 16
+  ? |
+    #let mine = counter("theorem")
+  : labels:
+    - source: counter("theorem")
+      style: primary
+      start: 12
+      end: 30
+    - source: counter
+      style: secondary
+      start: 12
+      end: 19
+  ? |
+    #let s = state("x", 0)
+  : labels:
+    - source: state("x", 0)
+      style: primary
+      start: 9
+      end: 22
+    - source: state
+      style: secondary
+      start: 9
+      end: 14
+  ? |
+    #let s = std.state("x", 0)
+  : labels:
+    - source: std.state("x", 0)
+      style: primary
+      start: 9
+      end: 26
+    - source: std.state
+      style: secondary
+      start: 9
+      end: 18
+  ? |
+    #state("x", 0)
+  : labels:
+    - source: state("x", 0)
+      style: primary
+      start: 1
+      end: 14
+    - source: state
+      style: secondary
+      start: 1
+      end: 6

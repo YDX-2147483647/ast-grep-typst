@@ -1,0 +1,13 @@
+id: plugin
+snapshots:
+  ? |
+    #let p = plugin("digestify.wasm")
+  : labels:
+    - source: plugin("digestify.wasm")
+      style: primary
+      start: 9
+      end: 33
+    - source: plugin
+      style: secondary
+      start: 9
+      end: 15

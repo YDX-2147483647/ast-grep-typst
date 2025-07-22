@@ -1,0 +1,16 @@
+id: stateful
+language: typst
+severity: info
+rule:
+  kind: call
+  any:
+    - has:
+        nthChild: 1
+        field: item
+        kind: ident
+        regex: ^(?:state|counter)$
+    - has:
+        nthChild: 1
+        field: item
+        kind: field
+        regex: ^std\.(?:state|counter)$

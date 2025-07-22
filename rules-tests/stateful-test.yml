@@ -1,0 +1,22 @@
+id: stateful
+
+invalid:
+  - |
+    #let s = state("x", 0)
+  - |
+    #let s = std.state("x", 0)
+  - |
+    #let mine = counter("theorem")
+  - |
+    #context counter(heading).get()
+
+valid:
+  - |
+    #let compute(expr) = [
+      #s.update(x => eval(expr.replace("x", str(x))))
+      New value is #context s.get().
+    ]
+    #std.eval("1+1")
+  - |
+    #context mine.display()
+    #mine.step()

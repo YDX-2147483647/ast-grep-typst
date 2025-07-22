@@ -2,5 +2,26 @@ id: eval
 language: typst
 severity: warning
 rule:
-  kind: ident
-  regex: ^eval$
+  any:
+    # Match `#eval(…)`
+    - kind: call
+      has:
+        nthChild: 1
+        field: item
+        matches: naked-or-std-eval
+    # Match `#let f = eval`
+    - inside:
+        kind: let
+        field: value
+      nthChild: 2
+      matches: naked-or-std-eval
+
+utils:
+  naked-or-std-eval:
+    any:
+      # Match `#let f = eval`
+      - kind: ident
+        regex: ^eval$
+      # Match `#let f = std.eval`
+      - kind: field
+        regex: ^std\.eval$

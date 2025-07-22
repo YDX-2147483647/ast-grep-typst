@@ -1,18 +1,49 @@
 id: hard-coded-str
 language: typst
-severity: warning
+severity: hint # Low severity because too common
 rule:
-  kind: code
-  has:
-    kind: string
-    stopBy: end
-    regex: >-
-      ^".{3,}"$
-    # At least two characters
-    not:
-      any:
-        - inside:
-            kind: import
-        - inside:
-            kind: set
-            stopBy: end
+  kind: string
+  regex: >-
+    ^"(?:[^\n\\]|\\["nrt\\]|\\u\{[0-9a-f]+\}){3,}"$
+  # At least three characters
+  # https://typst.app/docs/reference/foundations/str/#escapes
+  not:
+    any:
+      - inside:
+          kind: import
+          field: import
+      - inside:
+          kind: set
+          stopBy: end
+      - inside:
+          # `assert`, `panic`, etc.
+          kind: call
+          stopBy: end
+          any:
+            - has:
+                nthChild: 1
+                field: item
+                kind: ident
+                regex: "^(?:panic|assert|regex)$"
+            - has:
+                # `assert.eq` and `assert.ne`
+                nthChild: 1
+                field: item
+                kind: field
+                has:
+                  nthChild: 1
+                  kind: ident
+                  regex: "^assert$"
+      - inside:
+          # `args.has("children")`
+          kind: call
+          stopBy: end
+          has:
+            nthChild: 1
+            kind: field
+            field: item
+            has:
+              nthChild: 2
+              kind: ident
+              field: field
+              regex: "^(?:at|has)$"

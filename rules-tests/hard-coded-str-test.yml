@@ -9,6 +9,35 @@ valid:
     #set text(weight: "bold")
   - |
     #range(5).map(str).join(", ")
+  - |
+    #panic(
+      "expected a valid size (zìhào), found "
+        + repr(size)
+        + ". (All valid sizes: "
+        + rules.map(r => repr(r.at(0))).join(", ")
+        + ".)",
+    )
+  - |
+    #assert(len > 0, message: "at least one item is required")
+  - |
+    #assert.eq(
+      type(size),
+      int,
+      message: "expected an integer, found " + repr(size) + ".",
+    )
+  - |
+    #format.replace(regex("[0-9A-F]+"), m => m.text)
+  - |
+    #let SPACE = "\u{3000}"
+  - |
+    #"\t"
+    #"\t\t"
+  - |
+    #"\""
+  - |
+    #args.has("children")
+  - |
+    #it.element.at("body")
 
 invalid:
   - |
@@ -17,3 +46,9 @@ invalid:
     #{ "str" }
   - |
     #let x = "str"
+  - |
+    #foo("str")
+  - |
+    #"\t\t\t"
+  - |
+    #"姓\u{3000}名"
