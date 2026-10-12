@@ -1,3 +1,64 @@
+docs: |
+  = What it does
+  Checks for uses of the builtin `state()` and `counter()` functions.
+
+  = Why is this bad?
+  Excessive use of stateful mechanisms can slow down the compilation, or even make the document fail to converge within five attempts.
+
+  In the example below, saving a term does not require any complex calculation, but using `state()` forces it to create the unnamed function `old => old + ((term): explanation)`. If `save` is called many times, then the `state` version would be much slower than the `metadata` version. As of writing, if `save` is called 10k times, then the `state` version takes 15.7 ± 2.4 seconds, while the `metadata` version takes only 3.43 ± 0.13 seconds.
+  
+  = Example
+  ```typst
+  #let _glossary = state("glossary", (:))
+
+  #let save(term, explanation) = {
+    _glossary.update(old => old + ((term): explanation))
+    term
+  }
+
+  #let print-glossary() = {
+    [= Glossary]
+    for (term, explanation) in _glossary.final() [
+      / #term: #explanation
+    ]
+  }
+
+  Checks for uses of #save("state")[Manages stateful parts of your document.]
+  and #save("counter")[Counts through pages, elements, and more.].
+
+  #context print-glossary()
+  ```
+
+  Use instead:
+  ```typst
+  #let save(term, explanation) = {
+    [#metadata(((term): explanation))<term>]
+    term
+  }
+
+  #let print-glossary() = {
+    [= Glossary]
+    let glossary = query(<term>).map(meta => meta.value).join()
+    for (term, explanation) in glossary [
+      / #term: #explanation
+    ]
+  }
+
+  Checks for uses of #save("state")[Manages stateful parts of your document.]
+  and #save("counter")[Counts through pages, elements, and more.].
+
+  #context print-glossary()
+  ```
+
+  = Known problems
+  This rule unconditionally matches all uses of `state()` and `counter()`, including the reasonable ones.
+
+  = References
+  - #link("https://typst.app/docs/reference/introspection/counter/")[Counter - Typst Documentation]
+  - #link("https://typst.app/docs/reference/context/")[Context - Typst Documentation]
+  - #link("https://typst.app/docs/reference/introspection/state/")[State - Typst Documentation]
+  - #link("https://sitandr.github.io/typst-examples-book/book/basics/states/index.html")[States, Query, Context Dependence - Typst Examples Book]
+  
 id: stateful
 language: typst
 severity: info

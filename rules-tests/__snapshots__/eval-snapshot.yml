@@ -1,5 +1,22 @@
 id: eval
 snapshots:
+  ? |
+    #expressions.map(
+      eval.with(scope: (cell: table.cell) + scope),
+    )
+  : labels:
+    - source: 'eval.with(scope: (cell: table.cell) + scope)'
+      style: primary
+      start: 20
+      end: 64
+    - source: eval
+      style: secondary
+      start: 20
+      end: 24
+    - source: eval.with
+      style: secondary
+      start: 20
+      end: 29
   '#let f = eval':
     labels:
     - source: eval

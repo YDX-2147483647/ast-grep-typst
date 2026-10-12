@@ -1,3 +1,40 @@
+docs: |
+  = What it does
+  Checks for uses of show-function rules.
+
+  = Why is this bad?
+  Show-function rules are show rules that provide a function to transform the matching element. For example, `show heading: it => {…}`.
+
+  Show-function rules are hard to override and should be avoided if possible, especially for templates. For example, if a package uses a show-function rule to change the color of headings to red, then end authors cannot revert them to black with a similar rule.
+
+  This is due to the essential complexity of show-function rules. Roughly speaking, the functions applied to the matching element are nested. The innermost function is the one provided by the first rule—the rule specified by the package. Therefore, it takes precedence over the rules specified by the end author.
+
+  In contrast, set rules and show-set rules are easy to override. Typst resolves them statically, so specifying another rule just works.
+
+  In general:
+
+  + To simply set defaults, a set rule or a show-set rule is the best option.
+  + If additional logic is needed, try a show-where-set rule.
+  + If even more complex, use a show-function rule as a last resort.
+
+  = Example
+  ```typst
+  show heading: text.with(red)
+  ```
+
+  Use instead:
+  ```typst
+  show heading: set text(red)
+  ```
+
+  = Known problems
+  Sometimes show-function rules are inevitable. However, this rule matches them unconditionally.
+
+  = References
+  - #link("https://typst.app/docs/reference/styling/#show-rules")[Show rules - Styling - Typst Documentation]
+  - #link("https://github.com/typst/typst/issues/4591#issuecomment-2242456352")[Laurenz Mädje's comment - Better documentation for show vs show-set details · Issue \#4591 · typst/typst]
+  - #link("https://forum.typst.app/t/which-show-rule-takes-precedence/3904/15")[Reply \#15 - Which show rule takes precedence? - Questions - Typst Forum]
+  
 id: show-function
 language: typst
 severity: warning
@@ -17,7 +54,7 @@ rule:
             field: value
             kind: call
         - has:
-            # Example: `show emph: repr`
+            # Example: `show emph: repr
             nthChild: 2
             field: value
             kind: ident

@@ -47,9 +47,6 @@ jobs:
           # Note that this does not check if it works. It only helps for debugging.
           ast-grep scan
 
-      - run: just check
-      - run: just test
-
       - name: List example packages
         shell: bash
         run: |
@@ -57,14 +54,17 @@ jobs:
           #import "@preview/touying:0.6.1"
           #import "@preview/glossarium:0.5.8"
           EOF
-      - uses: typst-community/setup-typst@v4
+      - uses: typst-community/setup-typst@v5
         with:
           cache-dependency-path: deps.typ
+
+      - run: just check
+      - run: just test
 
       - name: Scan default rules
         run: |
           just scan touying/0.6.1
           just scan glossarium/0.5.8
-      - name: Scan hard-coded-str
+      - name: Scan hardcoded-str
         run: |
-          just scan touying/0.6.1 --hint=hard-coded-str --filter=hard-coded-str
+          just scan touying/0.6.1 --hint=hardcoded-str --filter=hardcoded-str

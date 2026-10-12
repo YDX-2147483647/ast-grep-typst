@@ -38,6 +38,22 @@ note[stateful]:
 …
 ```
 
+## See also
+
+- [**`tinymist lint`**](https://myriad-dreamin.github.io/tinymist/feature/linting.html) conducts a comprehensive scan for programming errors.
+
+  For example, it scans for the ineffective set rule in `if condition { set text(red) }` and suggests to replace it with `set text(red) if condition`.
+
+- [**textlint-plugin-typst**](https://www.npmjs.com/package/textlint-plugin-typst) makes it possible to ensure readability with the help of [textlint](https://textlint.org/), a linter for natural language text.
+
+  For example, it can limit the length of sentences in paragraphs, lists, and figure captions.
+
+[📝 Writing — 🛠️ Assistance | Best of Typst (TCDM)](https://ydx-2147483647.github.io/best-of-typst/#writing--assist) lists more tools in this area.
+
+## Rule conventions
+
+If possible, the rule names and documentation sections should be aligned with the guidelines in [Proposing Lint Rules | Ruff](https://docs.astral.sh/ruff/rule-proposals/). See [`show-function.yml`](./rules/show-function.yml) for an example.
+
 ## Development
 
 ### Online

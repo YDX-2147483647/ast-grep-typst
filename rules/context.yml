@@ -1,3 +1,29 @@
+docs: |
+  = What it does
+  Checks for uses of the `context` keyword.
+
+  = Why is this bad?
+  Excessive use of `context` can slow down the compilation, or even make the document fail to converge within five attempts.
+
+  = Example
+  ```typst
+  #let config = state("config", (foo: "bar"))
+  #context config.get().foo
+  ```
+
+  Use instead:
+  ```typst
+  #let config = (foo: "bar")
+  #config.foo
+  ```
+
+  = Known problems
+  This rule unconditionally matches all uses of `context`, including the reasonable ones.
+
+  = References
+  - #link("https://typst.app/docs/reference/context/")[Context - Typst Documentation]
+  - #link("https://typst.app/docs/reference/introspection/")[Introspection - Typst Documentation]
+
 id: context
 language: typst
 severity: info

@@ -11,6 +11,10 @@ invalid:
     #let f = eval("x")
   - |
     #let f = std.eval("x")
+  - |
+    #expressions.map(
+      eval.with(scope: (cell: table.cell) + scope),
+    )
 
 valid:
   - "`eval`"

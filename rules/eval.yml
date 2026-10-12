@@ -1,14 +1,50 @@
+docs: |
+  = What it does
+  Checks for uses of the builtin `eval()` function.
+
+  = Why is this bad?
+  This function should only be used as a last resort.
+
+  Calling `eval()` in Typst is far less harmful than calling `eval()` in general programming languages like Python. However, if a package relies on `eval()` to execute user inputs, it would be hard for end authors to use the package with their own definitions, because `eval()` does not get the outer scope automatically.
+
+  = Example
+  ```typst
+  #let theorem(title: "") = {
+    eval(title)
+  }
+  #theorem(title: "$x$")
+  ```
+
+  Use instead:
+  ```typst
+  #let theorem(title: []) = {
+    title
+  }
+  #theorem(title: $x$)
+  ```
+
+  = References
+  - #link("https://typst.app/docs/reference/foundations/eval/")[Evaluate - Typst Documentation]
+  - #link("https://github.com/typst/typst/discussions/2470")[Is a typst file safe? · typst/typst · Discussion \#2470]
+  - #link("https://docs.astral.sh/ruff/rules/suspicious-eval-usage/")[suspicious-eval-usage (S307) | Ruff (a Python linter)]
+
 id: eval
 language: typst
 severity: warning
 rule:
   any:
-    # Match `#eval(…)`
+    # Match direct calls
     - kind: call
       has:
         nthChild: 1
         field: item
-        matches: naked-or-std-eval
+        any:
+          # Match `#eval(…)`
+          - matches: naked-or-std-eval
+          # Match `#eval.with(…)`
+          - has:
+              nthChild: 1
+              matches: naked-or-std-eval
     # Match `#let f = eval`
     - inside:
         kind: let

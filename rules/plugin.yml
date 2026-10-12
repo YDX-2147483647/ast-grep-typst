@@ -1,6 +1,25 @@
+docs: |
+  = What it does
+  Checks for uses of WebAssembly (Wasm) plugins.
+
+  = Why does it matter?
+  Typst provides a Wasm protocol to incorporate other programming languages. For some tasks, other ecosystems have mature packages and provide convenient toolchains. Implementing functions via Wasm also avoids unnecessary intermediate caching. Therefore, Typst packages that use Wasm plugins are usually of higher quality.
+
+  However, if the package author has not handled errors properly, you may encounter the notorious error: _plugin panicked: wasm unreachable instruction executed_. This cryptic error message could make debugging extremely difficult.
+
+  Running Wasm plugins is quite safe, because they are run in isolation from the system.
+
+  = Example
+  ```typst
+  #let p = plugin("hello.wasm")
+  ```
+
+  = References
+  - #link("https://typst.app/docs/reference/foundations/plugin/")[Plugin - Typst Documentation]  
+
 id: plugin
 language: typst
-severity: info
+severity: hint
 rule:
   kind: call
   has:

@@ -1,6 +1,25 @@
+docs: |
+  = What it does
+  Checks for imports of packages on the Typst Universe.
+
+  = Why does it matter?
+  Different versions of a package may be incompatible. If the end author imports a package and also wants to use one of its dependencies directly, it is recommend to align the versions.
+
+  By the way, problems in a package's dependencies are not scanned. This can conceal security issues in theory. However, it is usually harmless to import Typst packages, even for untrusted Typst packages.
+
+  = Example
+  ```typst
+  #import "@preview/example:0.1.0": add
+  #add(2, 7)
+  ```
+
+  = References
+  - #link("https://typst.app/docs/reference/scripting/#packages")[Packages - Scripting - Typst Documentation]
+  - #link("https://github.com/typst/typst/discussions/2470")[Is a typst file safe? · typst/typst · Discussion \#2470]
+
 id: deps
 language: typst
-severity: info
+severity: hint
 rule:
   kind: import
   has:

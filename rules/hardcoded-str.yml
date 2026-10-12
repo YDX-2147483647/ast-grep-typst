@@ -1,4 +1,26 @@
-id: hard-coded-str
+docs: |
+  = What it does
+  Checks for uses of hardcoded strings.
+
+  = Why is this bad?
+  Hardcoded strings can be hard to maintain. In addition, user-facing strings would be untranslatable if hardcoded.
+
+  = Example
+  ```typst
+  #let is-equation(x) = "equation" in repr(x)
+  #is-equation($x$)
+  ```
+
+  Use instead:
+  ```typst
+  #let is-equation(x) = x.func() == math.equation
+  #is-equation($x$)
+  ```
+
+  = Known problems
+  This rule has so many false positives that it is off by default.
+
+id: hardcoded-str
 language: typst
 severity: "off" # Low severity because too common
 rule:

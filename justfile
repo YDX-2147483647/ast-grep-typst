@@ -15,7 +15,7 @@ setup:
         } \
     }}
 
-# Scan code by rules, e.g., `just scan headcount`, `just scan tidy/0.3.0 --filter=eval`, `just scan physica/0.9.5 --hint=hard-coded-str --filter=hard-coded-str`
+# Scan code by rules, e.g., `just scan headcount`, `just scan tidy/0.3.0 --filter=eval`, `just scan physica/0.9.5 --hint=hardcoded-str --filter=hardcoded-str`
 scan PREVIEW_PACKAGE_PATH *OPTIONS:
     ast-grep scan {{ OPTIONS }} {{ typst_preview }}/{{ PREVIEW_PACKAGE_PATH }}
 
@@ -38,6 +38,7 @@ check:
     # ]
     # ///
     from pathlib import Path
+    from subprocess import run
 
     from ruamel.yaml import YAML
 
@@ -47,6 +48,46 @@ check:
 
     def load_id(file: Path) -> str:
         return yaml.load(file.read_text(encoding="utf-8"))["id"]
+
+
+    def check_docs(rule: Path) -> None:
+        content = yaml.load(rule.read_text(encoding="utf-8"))
+        severity = content["severity"]
+        docs = content.get("docs")
+
+        assert docs is not None, f"Rule file {human(rule)} should provide docs"
+
+        # Check sections
+        assert docs.startswith("= What it does\n"), (
+            f"Rule file {human(rule)} should explain what it does"
+        )
+        assert "\n= Example\n" in docs, (
+            f"Rule file {human(rule)} should provide at least one example in the docs"
+        )
+        match severity:
+            case "hint":
+                assert "\n= Why does it matter?\n" in docs, (
+                    f"Rule file {human(rule)} should explain why it matters"
+                )
+            case "off":
+                assert (
+                    "\n= Why is this bad?\n" in docs or "\n= Why does it matter?\n" in docs
+                ), (
+                    f"Rule file {human(rule)} should explain why this is bad or why it matters"
+                )
+            case _:
+                assert "\n= Why is this bad?\n" in docs, (
+                    f"Rule file {human(rule)} should explain why this is bad"
+                )
+
+        # Check compilation
+        run(
+            ["typst", "compile", "-", "-", "--format=html", "--features=html"],
+            input=docs,
+            text=True,
+            check=True,
+            capture_output=True,
+        )
 
 
     def human(file: Path) -> str:
@@ -59,6 +100,7 @@ check:
 
         assert rule.suffix == ".yml", f"Rule file {human(rule)} must be a .yml file"
         assert rule.stem == load_id(rule), f"Rule file {human(rule)} stem must match its ID"
+        check_docs(rule)
 
         test = root / "rules-tests" / f"{rule.stem}-test.yml"
         assert test.exists() and test.is_file(), f"Test file {human(test)} must exist"
