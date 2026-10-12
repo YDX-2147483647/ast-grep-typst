@@ -15,6 +15,10 @@ jobs:
       actions: read
       contents: read
 
+    env:
+      # See https://github.com/ast-grep/ast-grep/blob/0.50.0/crates/cli/src/custom_language.rs#L170-L173
+      AST_GREP_TRUST_DIR: ${{ github.workspace }}/.ast-grep-trust
+
     steps:
       - uses: actions/checkout@v4
 
@@ -30,6 +34,18 @@ jobs:
       - run: just setup
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Let ast-grep trust custom languages
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          mkdir -p "$AST_GREP_TRUST_DIR"
+          CONFIG="$(realpath sgconfig.yml)"
+          jq --null-input --arg p "$CONFIG" '[$p]' > "$AST_GREP_TRUST_DIR/trusted-configs.json"
+
+          # Note that this does not check if it works. It only helps for debugging.
+          ast-grep scan
 
       - run: just check
       - run: just test

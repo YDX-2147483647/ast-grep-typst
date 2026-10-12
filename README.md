@@ -62,7 +62,15 @@ You could do so by any of the following methods:
 
   You could open that repo with GitHub Codespaces or Gitpod. Please refer to [the workflow file](./.github/workflows/build-tree-sitter.yml) for more info.
 
-After that, you can use `ast-grep`. Please refer to [Quick Start | ast-grep](https://ast-grep.github.io/guide/quick-start.html) for more information.
+Second, tell `ast-grep` to trust that library. To do so, run the following command and enter `y`.
+
+```shell
+$ ast-grep --custom-languages trust scan
+WARNING: native custom languages execute code with your permissions. ast-grep remembers the configuration path, not its contents.
+? Trust native custom languages configured by …/ast-grep-typst/sgconfig.yml? (y/N)
+```
+
+After that, you can use `ast-grep` for Typst. Please refer to [Quick Start | ast-grep](https://ast-grep.github.io/guide/quick-start.html) for more information.
 
 ```shell
 ast-grep test
