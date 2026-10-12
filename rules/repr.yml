@@ -1,0 +1,35 @@
+docs: |
+  = What it does
+  Checks for uses of the builtin `repr()` function.
+
+  = Why is this bad?
+  This function is for debugging purposes only. Its output should not be considered stable and may change at any time.
+
+  = Example
+  ```typst
+  #let is-equation(x) = "equation" in repr(x)
+  #is-equation($x$)
+  ```
+
+  Use instead:
+  ```typst
+  #let is-equation(x) = x.func() == math.equation
+  #is-equation($x$)
+  ```
+
+  = Known problems
+  This rule has many false positives. For example, generating error messages is a valid usage of `repr()`, but it triggers this rule.
+
+  = References
+  - #link("https://typst.app/docs/reference/foundations/repr/#debugging-only")[For debugging purposes only - Representation - Typst Documentation]
+
+id: repr
+language: typst
+severity: info
+rule:
+  kind: call
+  has:
+    nthChild: 1
+    field: item
+    kind: ident
+    regex: ^repr$

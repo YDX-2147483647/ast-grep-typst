@@ -1,0 +1,9 @@
+id: repr
+
+invalid:
+  - |
+    #repr(2pt / 3)
+
+valid:
+  - |
+    `repr` is for debugging purposes only.

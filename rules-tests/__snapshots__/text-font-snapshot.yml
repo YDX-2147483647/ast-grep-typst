@@ -1,0 +1,197 @@
+id: text-font
+snapshots:
+  ? |
+    #set text(
+      lang: "zh",
+      font: "Noto Serif CJK SC",
+    )
+  : labels:
+    - source: |-
+        text(
+          lang: "zh",
+          font: "Noto Serif CJK SC",
+        )
+      style: primary
+      start: 5
+      end: 55
+    - source: text
+      style: secondary
+      start: 5
+      end: 9
+    - source: font
+      style: secondary
+      start: 27
+      end: 31
+    - source: 'font: "Noto Serif CJK SC"'
+      style: secondary
+      start: 27
+      end: 52
+    - source: |-
+        (
+          lang: "zh",
+          font: "Noto Serif CJK SC",
+        )
+      style: secondary
+      start: 9
+      end: 55
+  ? |
+    #set text(font: "Noto Serif CJK SC")
+  : labels:
+    - source: 'text(font: "Noto Serif CJK SC")'
+      style: primary
+      start: 5
+      end: 36
+    - source: text
+      style: secondary
+      start: 5
+      end: 9
+    - source: font
+      style: secondary
+      start: 10
+      end: 14
+    - source: 'font: "Noto Serif CJK SC"'
+      style: secondary
+      start: 10
+      end: 35
+    - source: '(font: "Noto Serif CJK SC")'
+      style: secondary
+      start: 9
+      end: 36
+  ? |
+    #set text(font: (
+      (name: font.latin, covers: "latin-in-cjk"),
+      font.cjk,
+    ))
+  : labels:
+    - source: |-
+        text(font: (
+          (name: font.latin, covers: "latin-in-cjk"),
+          font.cjk,
+        ))
+      style: primary
+      start: 5
+      end: 78
+    - source: text
+      style: secondary
+      start: 5
+      end: 9
+    - source: font
+      style: secondary
+      start: 10
+      end: 14
+    - source: |-
+        font: (
+          (name: font.latin, covers: "latin-in-cjk"),
+          font.cjk,
+        )
+      style: secondary
+      start: 10
+      end: 77
+    - source: |-
+        (font: (
+          (name: font.latin, covers: "latin-in-cjk"),
+          font.cjk,
+        ))
+      style: secondary
+      start: 9
+      end: 78
+  ? |
+    #set text(font: font.serif)
+  : labels:
+    - source: 'text(font: font.serif)'
+      style: primary
+      start: 5
+      end: 27
+    - source: text
+      style: secondary
+      start: 5
+      end: 9
+    - source: font
+      style: secondary
+      start: 10
+      end: 14
+    - source: 'font: font.serif'
+      style: secondary
+      start: 10
+      end: 26
+    - source: '(font: font.serif)'
+      style: secondary
+      start: 9
+      end: 27
+  ? |
+    #show math.equation: set text(
+      font: ("New Computer Modern Math", "Noto Serif CJK SC"),
+    )
+  : labels:
+    - source: |-
+        text(
+          font: ("New Computer Modern Math", "Noto Serif CJK SC"),
+        )
+      style: primary
+      start: 25
+      end: 91
+    - source: text
+      style: secondary
+      start: 25
+      end: 29
+    - source: font
+      style: secondary
+      start: 33
+      end: 37
+    - source: 'font: ("New Computer Modern Math", "Noto Serif CJK SC")'
+      style: secondary
+      start: 33
+      end: 88
+    - source: |-
+        (
+          font: ("New Computer Modern Math", "Noto Serif CJK SC"),
+        )
+      style: secondary
+      start: 29
+      end: 91
+  ? |
+    #show raw: set text(font: ("DejaVu Sans Mono", "Noto Serif CJK SC"))
+  : labels:
+    - source: 'text(font: ("DejaVu Sans Mono", "Noto Serif CJK SC"))'
+      style: primary
+      start: 15
+      end: 68
+    - source: text
+      style: secondary
+      start: 15
+      end: 19
+    - source: font
+      style: secondary
+      start: 20
+      end: 24
+    - source: 'font: ("DejaVu Sans Mono", "Noto Serif CJK SC")'
+      style: secondary
+      start: 20
+      end: 67
+    - source: '(font: ("DejaVu Sans Mono", "Noto Serif CJK SC"))'
+      style: secondary
+      start: 19
+      end: 68
+  ? |
+    #text(font: "Noto Serif CJK SC")[文字]
+  : labels:
+    - source: 'text(font: "Noto Serif CJK SC")'
+      style: primary
+      start: 1
+      end: 32
+    - source: text
+      style: secondary
+      start: 1
+      end: 5
+    - source: font
+      style: secondary
+      start: 6
+      end: 10
+    - source: 'font: "Noto Serif CJK SC"'
+      style: secondary
+      start: 6
+      end: 31
+    - source: '(font: "Noto Serif CJK SC")'
+      style: secondary
+      start: 5
+      end: 32

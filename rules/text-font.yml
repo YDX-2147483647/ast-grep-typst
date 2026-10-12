@@ -1,0 +1,45 @@
+docs: |
+  = What it does
+  Checks for code that sets the `font` parameter of the `text` function.
+
+  = Why is this bad?
+  Setting `font` assumes the end author has the font installed. Additionally, it assumes the installed font has the same name as the package specifies. However, there are cases where these assumptions do not hold:
+  - The package specifies a Latin-only font, but the end author wants to use an alternative font for Han/CJK characters.
+  - The package author and the end author obtain the font from different sources, so the font names are inconsistent.
+
+  In those cases, setting `font` triggers the _unknown font family_ warning. Unfortunately, Typst does not yet provide a way to suppress warnings, so the warning can become quite annoying.
+
+  Specifically, Typst packages should not specify a font fallback list as people do in CSS. In Typst, the font fallback mechanism is intended more for covering multiple writing scripts than for covering multiple environments. Therefore, Typst will warn if any font in the list is unknown, which is not desirable for this use case.
+
+  Note that it is also suboptimal for Typst packages to provide a `font` parameter and pass it to the `text` function. When an end author places the cursor inside `set text(font: …)`, most editors will provide auto-completion for font names; however, when the cursor is placed inside `show: template.with(font: …)`, auto-completion is not available.
+  
+  Therefore, it is usually better to let the end author set `font` directly.
+
+  = Example
+  ```typst
+  #set text(font: "Noto Serif CJK SC")
+  ```
+
+  = References
+  - #link("https://typst.app/docs/reference/text/text/#parameters-font")[`font` - Text - Typst Documentation]
+  - #link("https://github.com/typst/typst/issues/6010")[A way to avoid font-not-found warning if alternative font is found · Issue \#6010 · typst/typst]
+  - #link("https://github.com/typst/typst/issues/7468")[Also select font via localized family name · Issue \#7468 · typst/typst]
+
+id: text-font
+language: typst
+severity: warning
+rule:
+  kind: call
+  all:
+    - has:
+        nthChild: 1
+        kind: ident
+        regex: ^text$
+    - has:
+        nthChild: 2
+        kind: group
+        has:
+          kind: tagged
+          has:
+            kind: ident
+            regex: ^font$

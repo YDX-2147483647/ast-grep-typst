@@ -1,0 +1,29 @@
+id: text-font
+
+invalid:
+  - |
+    #set text(font: "Noto Serif CJK SC")
+  - |
+    #set text(
+      lang: "zh",
+      font: "Noto Serif CJK SC",
+    )
+  - |
+    #text(font: "Noto Serif CJK SC")[文字]
+  - |
+    #set text(font: font.serif)
+  - |
+    #set text(font: (
+      (name: font.latin, covers: "latin-in-cjk"),
+      font.cjk,
+    ))
+  - |
+    #show math.equation: set text(
+      font: ("New Computer Modern Math", "Noto Serif CJK SC"),
+    )
+  - |
+    #show raw: set text(font: ("DejaVu Sans Mono", "Noto Serif CJK SC"))
+
+valid:
+  - |
+    #context text.font
